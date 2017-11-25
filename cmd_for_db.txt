@@ -1,0 +1,89 @@
+create (:Show{name:"game of thrones"})
+create (:Show{name:"the walking dead"})
+create (:Show{name:"blacklist"})
+create (:Show{name:"mr robot"})
+create (:Show{name:"breaking bad"})
+create (:Show{name:"house of cards"})
+create (:Show{name:"stranger things"})
+create (:Show{name:"the flash"})
+
+create (:Channel{name:"hbo"})
+create (:Channel{name:"usa network"})
+create (:Channel{name:"amc"})
+create (:Channel{name:"netflix"})
+create (:Channel{name:"marvel"})
+
+create (:Provider{name:"tata sky"})
+create (:Provider{name:"airtel"})
+create (:Provider{name:"dish tv"})
+create (:Provider{name:"videocon"})
+create (:Provider{name:"bigtv"})
+
+create (:Actor{name:"kit harington"})
+create (:Actor{name:"maisie williams"})
+create (:Actor{name:"andrew lincoln"})
+create (:Actor{name:"bryan cranston"})
+create (:Actor{name:"aaron paul"})
+create (:Actor{name:"megan boone"})
+create (:Actor{name:"james spader"})
+create (:Actor{name:"grant gustin"})
+create (:Actor{name:"kevin spacey"})
+create (:Actor{name:"grace gummer"})
+create (:Actor{name:"noah schnapp"})
+
+match (s1:Show{name:"game of thrones"}),(s2:Show{name:"the walking dead"}),
+	  (s3:Show{name:"blacklist"}),(s4:Show{name:"mr robot"}),(s5:Show{name:"breaking bad"}),
+	  (s6:Show{name:"house of cards"}),(s7:Show{name:"stranger things"}), (s8:Show{name:"the flash"}),
+	  (c1:Channel{name:"hbo"}), (c2:Channel{name:"usa network"}), (c3:Channel{name:"amc"}),
+	  (c4:Channel{name:"netflix"}), (c5:Channel{name:"marvel"})
+create (s1)-[:AIRED_BY]->(c1),
+	   (s2)-[:AIRED_BY]->(c3),
+	   (s3)-[:AIRED_BY]->(c4),
+	   (s4)-[:AIRED_BY]->(c2),
+	   (s5)-[:AIRED_BY]->(c3),
+	   (s6)-[:AIRED_BY]->(c4),
+	   (s7)-[:AIRED_BY]->(c5),
+	   (s8)-[:AIRED_BY]->(c5);
+		
+match (c1:Channel{name:"hbo"}), (c2:Channel{name:"usa network"}), (c3:Channel{name:"amc"}),
+	  (c4:Channel{name:"netflix"}), (c5:Channel{name:"marvel"}),
+	  (p1:Provider{name:"tata sky"}), (p2:Provider{name:"airtel"}),
+	  (p3:Provider{name:"dish tv"}), (p4:Provider{name:"videocon"}), (p5:Provider{name:"bigtv"})
+create  (c1)-[:PROVIDED_BY]->(p1),
+		(c1)-[:PROVIDED_BY]->(p3),
+		(c2)-[:PROVIDED_BY]->(p1),
+		(c3)-[:PROVIDED_BY]->(p2),
+		(c3)-[:PROVIDED_BY]->(p3),
+		(c3)-[:PROVIDED_BY]->(p5),
+		(c4)-[:PROVIDED_BY]->(p4),
+		(c5)-[:PROVIDED_BY]->(p4);
+		
+match 	(a1:Actor{name:"kit harington"}), (a2:Actor{name:"maisie williams"}), (a3:Actor{name:"andrew lincoln"}), 
+		(a4:Actor{name:"bryan cranston"}), (a5:Actor{name:"aaron paul"}), (a6:Actor{name:"megan boone"}), 
+		(a7:Actor{name:"james spader"}), (a8:Actor{name:"grant gustin"}), (a9:Actor{name:"kevin spacey"}), 
+		(a10:Actor{name:"grace gummer"}), (a11:Actor{name:"noah schnapp"}),
+		(s1:Show{name:"game of thrones"}),(s2:Show{name:"the walking dead"}),
+	    (s3:Show{name:"blacklist"}),(s4:Show{name:"mr robot"}),(s5:Show{name:"breaking bad"}),
+	    (s6:Show{name:"house of cards"}),(s7:Show{name:"stranger things"}), (s8:Show{name:"the flash"})
+create (a1)-[:ACTED_IN]->(s1),
+	   (a1)-[:ACTED_IN]->(s2),
+	   (a2)-[:ACTED_IN]->(s1),
+	   (a2)-[:ACTED_IN]->(s3),
+	   (a3)-[:ACTED_IN]->(s2),
+	   (a3)-[:ACTED_IN]->(s6),
+	   (a4)-[:ACTED_IN]->(s5),
+	   (a4)-[:ACTED_IN]->(s4),
+	   (a5)-[:ACTED_IN]->(s5),
+	   (a5)-[:ACTED_IN]->(s6),
+	   (a6)-[:ACTED_IN]->(s3),
+	   (a6)-[:ACTED_IN]->(s1),
+	   (a7)-[:ACTED_IN]->(s3),
+	   (a7)-[:ACTED_IN]->(s2),
+	   (a8)-[:ACTED_IN]->(s8),
+	   (a8)-[:ACTED_IN]->(s7),
+	   (a9)-[:ACTED_IN]->(s6),
+	   (a9)-[:ACTED_IN]->(s8),
+	   (a10)-[:ACTED_IN]->(s2),
+	   (a11)-[:ACTED_IN]->(s4),
+	   (a11)-[:ACTED_IN]->(s7),
+	   (a11)-[:ACTED_IN]->(s2);
